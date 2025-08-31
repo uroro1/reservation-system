@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드 - 상담 서비스 예약</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spoqa+Han+Sans+Neo:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 관리자 대시보드</h1>
+            <p>상담 서비스 예약 현황을 한눈에 확인하세요</p>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- 카테고리 필터 섹션 -->
+            <section class="category-filter">
+                <div class="category-grid">
+                    <div class="category-card total active" data-category="all">
+                        <div class="category-icon">📊</div>
+                        <div class="category-content">
+                            <div class="category-number" id="totalReservations">0</div>
+                            <div class="category-label">전체 예약</div>
+                        </div>
+                    </div>
+                    <div class="category-card pending" data-category="pending">
+                        <div class="category-icon">⏳</div>
+                        <div class="category-content">
+                            <div class="category-number" id="pendingReservations">0</div>
+                            <div class="category-label">대기 중</div>
+                        </div>
+                    </div>
+                    <div class="category-card confirmed" data-category="confirmed">
+                        <div class="category-icon">✅</div>
+                        <div class="category-content">
+                            <div class="category-number" id="confirmedReservations">0</div>
+                            <div class="category-label">확정됨</div>
+                        </div>
+                    </div>
+                    <div class="category-card rejected" data-category="rejected">
+                        <div class="category-icon">❌</div>
+                        <div class="category-content">
+                            <div class="category-number" id="rejectedReservations">0</div>
+                            <div class="category-label">거절됨</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 메인 대시보드 그리드 -->
+            <section class="dashboard-grid">
+                <!-- 캘린더 섹션 -->
+                <div class="dashboard-card calendar-section">
+                    <div class="card-header">
+                        <h2>📅 예약 캘린더</h2>
+                        <p>날짜를 클릭하여 해당 날짜의 예약을 확인하세요</p>
+                    </div>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button id="prevMonth">◀</button>
+                            <h3 id="monthTitle"></h3>
+                            <button id="nextMonth">▶</button>
+                        </div>
+                        <div id="calendarGrid" class="calendar-grid"></div>
+                    </div>
+                </div>
+
+                <!-- 예약 목록 섹션 -->
+                <div class="dashboard-card reservation-section">
+                    <div class="card-header">
+                        <h2>📋 예약 목록</h2>
+                        <p id="reservationFilterText">전체 예약 현황을 관리하세요</p>
+                    </div>
+                    <div class="reservation-list" id="reservationList">
+                        <!-- 예약 목록이 여기에 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 메인으로 돌아가기 버튼 -->
+            <div class="back-to-main">
+                <a href="index.html" class="back-btn">← 메인으로 돌아가기</a>
+            </div>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
