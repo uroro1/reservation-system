@@ -5,8 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchPhone = document.getElementById('searchPhone');
     const resultSection = document.getElementById('resultSection');
     const reservationDetails = document.getElementById('reservationDetails');
-    const editBtn = document.getElementById('editBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
+    // editBtn과 cancelBtn은 동적으로 생성되므로 여기서 참조하지 않음
     const editSection = document.getElementById('editSection');
     const editForm = document.getElementById('editForm');
     const cancelEditBtn = document.getElementById('cancelEditBtn');
@@ -28,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        console.log('검색 시작:', { name, phone });
+
         // Local Storage에서 예약 찾기
         const reservations = JSON.parse(localStorage.getItem('reservations') || '[]');
         console.log('전체 예약:', reservations); // 디버깅용
@@ -39,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('검색 조건:', { name, phone, reservation: reservation.name, reservationPhone: reservation.phone }); // 디버깅용
             return nameMatch || phoneMatch;
         });
+
+        console.log('찾은 예약:', allFoundReservations);
 
         if (allFoundReservations.length > 0) {
             displayAllReservations(allFoundReservations);
@@ -167,29 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
         editSection.style.display = 'block';
     };
 
-    // 예약 취소 (전역 함수로 만들기)
-    window.cancelReservation = function(index) {
-        if (allFoundReservations.length > 1) {
-            currentReservation = allFoundReservations[index];
-        }
-        
-        if (!currentReservation) return;
-        
-        showConfirmModal('정말로 이 예약을 취소하시겠습니까?', function() {
-            cancelReservationAction();
-        });
-    };
-
-    // 상태 텍스트 변환
-    function getStatusText(status) {
-        switch(status) {
-            case 'confirmed': return '확정됨';
-            case 'rejected': return '거절됨';
-            case 'cancelled': return '취소됨';
-            default: return '대기중';
-        }
-    }
-
     // 수정 취소 버튼
     cancelEditBtn.addEventListener('click', function() {
         editSection.style.display = 'none';
@@ -231,6 +211,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // 예약 취소 (전역 함수로 만들기)
+    window.cancelReservation = function(index) {
+        if (allFoundReservations.length > 1) {
+            currentReservation = allFoundReservations[index];
+        }
+        
+        if (!currentReservation) return;
+        
+        showConfirmModal('정말로 이 예약을 취소하시겠습니까?', function() {
+            cancelReservationAction();
+        });
+    };
+
     // 예약 취소 실행
     function cancelReservationAction() {
         if (!currentReservation) return;
@@ -251,6 +244,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             alert('예약이 취소되었습니다.');
             displayAllReservations(allFoundReservations);
+        }
+    }
+
+    // 상태 텍스트 변환
+    function getStatusText(status) {
+        switch(status) {
+            case 'confirmed': return '확정됨';
+            case 'rejected': return '거절됨';
+            case 'cancelled': return '취소됨';
+            default: return '대기중';
         }
     }
 
@@ -285,4 +288,3 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Enter') searchBtn.click();
     });
 });
-
