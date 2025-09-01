@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상담 서비스 예약</title>
+    <title>만월당 상담 서비스</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spoqa+Han+Sans+Neo:wght@100;300;400;500;700&display=swap" rel="stylesheet">
@@ -12,67 +12,45 @@
 <body>
     <div class="container">
         <header>
-            <h1>만월당 상담 서비스 예약</h1>
-            <p>편리하게 상담을 예약하세요</p>
+            <h1>🌙 만월당 상담 서비스</h1>
+            <p>편리하게 상담을 예약하고 확인하세요</p>
         </header>
 
-        <main>
-            <!-- 캘린더 섹션 -->
-            <div class="calendar-container">
-                <div class="calendar-header">
-                    <button id="prevMonth">◀</button>
-                    <h2 id="monthTitle"></h2>
-                    <button id="nextMonth">▶</button>
+        <main class="main-menu">
+            <!-- 메인 메뉴 섹션 -->
+            <section class="menu-section">
+                <h2>📋 서비스 메뉴</h2>
+                <div class="menu-grid">
+                    <div class="menu-card" onclick="goToReservation()">
+                        <div class="menu-icon">📅</div>
+                        <div class="menu-content">
+                            <h3>예약하기</h3>
+                            <p>새로운 상담 예약을 진행합니다</p>
+                            <div class="menu-arrow">→</div>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-card" onclick="goToCheck()">
+                        <div class="menu-icon">🔍</div>
+                        <div class="menu-content">
+                            <h3>예약확인</h3>
+                            <p>기존 예약을 확인하고 수정합니다</p>
+                            <div class="menu-arrow">→</div>
+                        </div>
+                    </div>
                 </div>
-                <div id="calendarGrid" class="calendar-grid"></div>
-            </div>
-
-            <!-- 시간 선택 섹션 -->
-            <div class="time-selection">
-                <h3>⏰ 시간 선택</h3>
-                <p>원하시는 시간을 선택해주세요</p>
-                <div id="timeGrid" class="time-grid"></div>
-            </div>
-
-            <!-- 예약 폼 -->
-            <form id="reservationForm" class="reservation-form" style="display: none;">
-                <div class="form-group">
-                    <label for="name">이름 *</label>
-                    <input type="text" id="name" name="name" placeholder="예약할 이름을 적어주세요" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">연락처 *</label>
-                    <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="memo">메모 (선택사항)</label>
-                    <textarea id="memo" name="memo" rows="3" placeholder="상담 내용이나 특별한 요청사항이 있으시면 적어주세요"></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn">예약하기</button>
-            </form>
-
-            <!-- 로딩 섹션 -->
-            <div class="loading">
-                <div class="spinner"></div>
-                <h3>예약 처리 중...</h3>
-                <p>잠시만 기다려주세요</p>
-            </div>
-
-
+            </section>
         </main>
     </div>
 
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <h2>✅ 예약 완료!</h2>
-            <p>상담 예약이 성공적으로 완료되었습니다.</p>
-            <button onclick="closeModal()" class="close-btn">확인</button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script>
+        function goToReservation() {
+            window.location.href = 'reservation.html';
+        }
+        
+        function goToCheck() {
+            window.location.href = 'check.html';
+        }
+    </script>
 </body>
 </html>

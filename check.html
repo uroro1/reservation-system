@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약확인 - 만월당 상담 서비스</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spoqa+Han+Sans+Neo:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 예약 확인하기</h1>
+            <p>기존 예약을 확인하고 수정하세요</p>
+        </header>
+
+        <main>
+            <!-- 예약 검색 섹션 -->
+            <section class="search-section">
+                <h2>📋 예약 검색</h2>
+                <div class="search-form">
+                    <div class="form-group">
+                        <label for="searchName">이름</label>
+                        <input type="text" id="searchName" placeholder="예약한 이름을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchPhone">연락처</label>
+                        <input type="tel" id="searchPhone" placeholder="010-1234-5678">
+                    </div>
+                    <button type="button" id="searchBtn" class="search-btn">🔍 예약 찾기</button>
+                </div>
+            </section>
+
+            <!-- 예약 결과 섹션 -->
+            <section class="result-section" id="resultSection" style="display: none;">
+                <h2>📅 예약 정보</h2>
+                <div class="reservation-details" id="reservationDetails">
+                    <!-- 예약 정보가 여기에 표시됩니다 -->
+                </div>
+                
+                <div class="action-buttons">
+                    <button type="button" id="editBtn" class="edit-btn">✏️ 예약 수정</button>
+                    <button type="button" id="cancelBtn" class="cancel-btn">❌ 예약 취소</button>
+                </div>
+            </section>
+
+            <!-- 예약 수정 폼 -->
+            <section class="edit-section" id="editSection" style="display: none;">
+                <h2>✏️ 예약 수정</h2>
+                <form id="editForm" class="edit-form">
+                    <div class="form-group">
+                        <label for="editName">이름 *</label>
+                        <input type="text" id="editName" name="editName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPhone">연락처 *</label>
+                        <input type="tel" id="editPhone" name="editPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editMemo">메모</label>
+                        <textarea id="editMemo" name="editMemo" rows="3"></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="save-btn">💾 저장하기</button>
+                        <button type="button" id="cancelEditBtn" class="cancel-btn">취소</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 메인으로 돌아가기 버튼 -->
+            <div class="back-to-main">
+                <a href="index.html" class="back-btn">← 메인으로 돌아가기</a>
+            </div>
+        </main>
+    </div>
+
+    <!-- 확인 모달 -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h2>⚠️ 확인</h2>
+            <p id="confirmMessage"></p>
+            <div class="modal-buttons">
+                <button id="confirmYes" class="confirm-btn">예</button>
+                <button id="confirmNo" class="cancel-btn">아니오</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="check.js"></script>
+</body>
+</html>

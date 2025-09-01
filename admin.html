@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>관리자 대시보드</h1>
+            <h1>🔧 관리자 대시보드</h1>
             <p>상담 서비스 예약 현황을 한눈에 확인하세요</p>
         </header>
 
@@ -86,6 +86,31 @@
                 <a href="index.html" class="back-btn">← 메인으로 돌아가기</a>
             </div>
         </main>
+    </div>
+
+    <!-- 거절 메시지 모달 -->
+    <div id="rejectModal" class="modal">
+        <div class="modal-content reject-modal">
+            <h2>❌ 예약 거절</h2>
+            <p>거절 사유를 입력해주세요</p>
+            
+            <form id="rejectForm" class="reject-form">
+                <div class="form-group">
+                    <label for="rejectReason">거절 사유 *</label>
+                    <textarea id="rejectReason" name="rejectReason" rows="4" placeholder="예약을 거절하는 이유를 상세히 입력해주세요..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="rejectMessage">고객에게 전달할 메시지</label>
+                    <textarea id="rejectMessage" name="rejectMessage" rows="3" placeholder="고객에게 전달할 친절한 메시지를 입력해주세요..."></textarea>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="submit" class="reject-confirm-btn">❌ 거절하기</button>
+                    <button type="button" class="cancel-btn" onclick="closeRejectModal()">취소</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="admin.js"></script>

@@ -262,6 +262,24 @@ function renderReservationList() {
                     <span class="info-value">${reservation.memo}</span>
                 </div>
                 ` : ''}
+                ${reservation.status === 'rejected' && reservation.rejectReason ? `
+                <div class="info-item reject-info">
+                    <span class="info-label">❌ 거절 사유</span>
+                    <span class="info-value">${reservation.rejectReason}</span>
+                </div>
+                ` : ''}
+                ${reservation.status === 'rejected' && reservation.rejectMessage ? `
+                <div class="info-item reject-info">
+                    <span class="info-label">💬 고객 메시지</span>
+                    <span class="info-value">${reservation.rejectMessage}</span>
+                </div>
+                ` : ''}
+                ${reservation.status === 'rejected' && reservation.rejectedAt ? `
+                <div class="info-item reject-info">
+                    <span class="info-label">📅 거절 일시</span>
+                    <span class="info-value">${formatDateTime(reservation.rejectedAt)}</span>
+                </div>
+                ` : ''}
             </div>
             
             ${reservation.status === 'pending' ? `
@@ -295,18 +313,68 @@ function confirmReservation(id) {
 
 // 예약 거절
 function rejectReservation(id) {
-    if (confirm('이 예약을 거절하시겠습니까?')) {
-        const reservation = reservations.find(r => r.id === id);
-        if (reservation) {
-            reservation.status = 'rejected';
-            saveReservations();
-            updateStatistics();
-            renderReservationList();
-            renderCalendar();
-            alert('예약이 거절되었습니다.');
-        }
-    }
+    const reservation = reservations.find(r => r.id === id);
+    if (!reservation) return;
+    
+    // 거절 모달 표시
+    showRejectModal(reservation);
 }
+
+// 거절 모달 표시
+function showRejectModal(reservation) {
+    const modal = document.getElementById('rejectModal');
+    const form = document.getElementById('rejectForm');
+    
+    // 폼 초기화
+    form.reset();
+    
+    // 모달 표시
+    modal.style.display = 'block';
+    
+    // 폼 제출 이벤트
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        
+        const reason = document.getElementById('rejectReason').value.trim();
+        const message = document.getElementById('rejectMessage').value.trim();
+        
+        if (!reason) {
+            alert('거절 사유를 입력해주세요.');
+            return;
+        }
+        
+        // 예약 상태 변경 및 메시지 저장
+        reservation.status = 'rejected';
+        reservation.rejectReason = reason;
+        reservation.rejectMessage = message;
+        reservation.rejectedAt = new Date().toISOString();
+        
+        // 저장
+        saveReservations();
+        updateStatistics();
+        renderReservationList();
+        renderCalendar();
+        
+        // 모달 닫기
+        closeRejectModal();
+        
+        alert('예약이 거절되었습니다.');
+    };
+}
+
+// 거절 모달 닫기
+function closeRejectModal() {
+    const modal = document.getElementById('rejectModal');
+    modal.style.display = 'none';
+}
+
+// 모달 외부 클릭 시 닫기
+window.onclick = function(event) {
+    const modal = document.getElementById('rejectModal');
+    if (event.target === modal) {
+        closeRejectModal();
+    }
+};
 
 // 예약 데이터 저장
 function saveReservations() {
