@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 이벤트 리스너 설정
 function setupEventListeners() {
+    // 로그아웃 버튼
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    
     // 이전/다음 달 버튼
     document.getElementById('prevMonth').addEventListener('click', () => {
         currentDate.setMonth(currentDate.getMonth() - 1);
@@ -422,3 +425,40 @@ window.addEventListener('storage', function(e) {
         renderCalendar();
     }
 });
+
+// 관리자 로그인 체크
+function checkAdminLogin() {
+    const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+    const loginTime = localStorage.getItem('loginTime');
+    
+    if (!isLoggedIn) return false;
+    
+    // 로그인 시간 체크 (24시간 후 자동 로그아웃)
+    if (loginTime) {
+        const loginDate = new Date(loginTime);
+        const now = new Date();
+        const hoursDiff = (now - loginDate) / (1000 * 60 * 60);
+        
+        if (hoursDiff > 24) {
+            // 24시간 초과 시 자동 로그아웃
+            logout();
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// 관리자 정보 표시
+function displayAdminInfo() {
+    const username = localStorage.getItem('adminUsername') || '관리자';
+    document.getElementById('adminUsername').textContent = `👤 ${username}`;
+}
+
+// 로그아웃
+function logout() {
+    localStorage.removeItem('adminLoggedIn');
+    localStorage.removeItem('adminUsername');
+    localStorage.removeItem('loginTime');
+    window.location.href = 'login.html';
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 로그인 - 만월당 상담 서비스</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spoqa+Han+Sans+Neo:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1>🔐 관리자 로그인</h1>
+                    <p>관리자 계정으로 로그인하세요</p>
+                </div>
+                
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="password">관리자 비밀번호</label>
+                        <input type="password" id="password" name="password" placeholder="관리자 비밀번호를 입력하세요" required>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">🔑 로그인</button>
+                </form>
+                
+                <!-- 메인으로 돌아가기 버튼 제거됨 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 로그인 실패 모달 -->
+    <div id="loginErrorModal" class="modal">
+        <div class="modal-content">
+            <h2>❌ 로그인 실패</h2>
+            <p id="errorMessage">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+            <button onclick="closeErrorModal()" class="close-btn">확인</button>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>
